@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vedant's Profile</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary-color: #ff4d4d;
+        --dark-color: #222;
+        --light-color: #f8f9fa;
+        --gray-color: #343a40;
+      }
+
+      body {
+        background-color: var(--dark-color);
+        color: white;
+        font-family: "Roboto", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: rgba(34, 34, 34, 0.95) !important;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-link {
+        position: relative;
+        padding: 8px 15px;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #2b2b2b 0%, #121212 100%);
+        z-index: -1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        padding-top: 20vh;
+      }
+
+      .hero-title {
+        font-family: "Roboto", sans-serif;
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(to right, #ff4d4d, #f9cb28);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .typewriter {
+        border-right: 3px solid var(--primary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+      }
+
+      /* Skills Section */
+      .skill-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 3px solid var(--primary-color);
+      }
+
+      /* Project Cards */
+      .project-card {
+        overflow: hidden;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .project-card img {
+        transition: transform 0.5s ease;
+      }
+
+      .project-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(2px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .project-card:hover .overlay {
+        opacity: 1;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(to right, #1a1a1a, #000);
+        position: relative;
+        overflow: hidden;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to right, #ff4d4d, #f9cb28);
+      }
+
+      /* Contact Form */
+      .contact-form .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        margin-bottom: 20px;
+      }
+
+      .contact-form .form-control:focus {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        box-shadow: 0 0 0 0.25rem rgba(255, 77, 77, 0.25);
+      }
+
+      .btn-custom {
+        background: linear-gradient(to right, #ff4d4d, #f9cb28);
+        border: none;
+        color: black;
+        font-weight: 600;
+        padding: 10px 30px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 77, 77, 0.2);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      /* Animation Classes */
+      .fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+          <span class="text-white">𝚅𝚎𝚍𝚍𝚍!!</span 
+          ><!--<span class="text-white">Agale</span> -->
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#skills">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="Media/Agale Vedant.pdf"
+                class="btn btn-sm btn-custom ms-lg-3 mt-2 mt-lg-0"
+                >Download CV</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <div class="row align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h6 class="text-primary mb-3">HELLO, I'M</h6>
+            <h1 class="hero-title mb-4">Vedant Agale</h1>
+            <h2 class="mb-4">
+              I'm a <span id="typewriter" class="typewriter"></span>
+            </h2>
+            <p class="lead mb-4">
+              I create beautiful, functional websites and digital experiences
+              that help businesses grow.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#projects" class="btn btn-custom">My Work</a>
+              <a href="#contact" class="btn btn-outline-light">Hire Me</a>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left">
+            <div class="position-relative d-inline-block">
+              <div
+                class="p-3 rounded-circle border border-4 border-primary d-inline-block"
+              >
+                <img
+                  src="Media/Profile.png"
+                  alt="Vedant Agale - Professional Web Developer"
+                  class="img-fluid rounded-circle"
+                  style="width: 350px; height: 350px; object-fit: cover"
+                />
+              </div>
+              <div
+                class="position-absolute bottom-0 end-0 bg-primary p-2 rounded-circle"
+                style="animation: pulse 2s infinite"
+              >
+                <i class="bi bi-check2-circle fs-4 text-dark"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+            <div class="position-relative">
+              <img
+                src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb0d6097-0f4e-4a8b-a50c-f0dedde43015.png"
+                alt="Vedant Agale working on laptop with coding screen"
+                class="img-fluid rounded-4 shadow-lg"
+              />
+              <div
+                class="position-absolute bottom-0 start-0 bg-primary p-3 rounded-end m-3"
+              >
+                <h3 class="mb-0">2+</h3>
+                <small>Years Experience</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7" data-aos="fade-left">
+            <h6 class="text-primary">ABOUT ME</h6>
+            <h2 class="mb-4">Web Developer</h2>
+            <p class="lead mb-4">
+              I'm a passionate web developer with expertise in creating modern,
+              responsive websites and web applications that deliver exceptional
+              user experiences.
+            </p>
+
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Frontend Development
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    UI/UX Design
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Responsive Design
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Web Performance
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Cross-browser Support
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                    Clean Code
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <a href="Media/Agale Vedant.pdf" class="btn btn-custom">Download CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 bg-dark3">
+      <div class="container py-5">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+            <h6 class="text-primary">SKILLS</h6>
+            <h2 class="mb-3">What I'm Great At</h2>
+            <p>
+              I've developed skills in various areas of web development and
+              design to create complete digital solutions.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div
+            class="col-md-6 col-lg-3"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="skill-card">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-code-slash fs-4 text-dark"></i>
+                </div>
+                <h5 class="mb-0">Frontend</h5>
+              </div>
+              <p>
+                Building interactive interfaces with HTML, CSS, JavaScript and
+                modern frameworks.
+              </p>
+              <div class="progress mt-3" style="height: 8px">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  style="width: 90%"
+                  aria-valuenow="90"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="skill-card">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-braces fs-4 text-dark"></i>
+                </div>
+                <h5 class="mb-0">Backend</h5>
+              </div>
+              <p>
+                Developing server-side applications with Node.js, Express and
+                databases.
+              </p>
+              <div class="progress mt-3" style="height: 8px">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  style="width: 75%"
+                  aria-valuenow="75"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="skill-card">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-palette fs-4 text-dark"></i>
+                </div>
+                <h5 class="mb-0">UI/UX Design</h5>
+              </div>
+              <p>
+                Creating beautiful and intuitive user interfaces with great user
+                experience.
+              </p>
+              <div class="progress mt-3" style="height: 8px">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  style="width: 85%"
+                  aria-valuenow="85"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="skill-card">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-phone fs-4 text-dark"></i>
+                </div>
+                <h5 class="mb-0">Mobile</h5>
+              </div>
+              <p>
+                Building cross-platform mobile apps with React Native and
+                Flutter.
+              </p>
+              <div class="progress mt-3" style="height: 8px">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  style="width: 70%"
+                  aria-valuenow="70"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+      <div class="container py-5">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+            <h6 class="text-primary">MY WORK</h6>
+            <h2 class="mb-3">Recent Projects</h2>
+            <p>
+              Take a look at some of my recent projects showcasing my skills and
+              expertise.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div
+            class="col-md-6 col-lg-4"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="project-card">
+              <img
+                src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4217c34e-a175-4df7-ab44-33a2fc88ef5b.png"
+                alt="E-commerce website design with product listings and shopping cart functionality"
+                class="img-fluid w-100"
+              />
+              <div class="overlay p-4">
+                <h4>E-commerce Store</h4>
+                <p>
+                  Full-featured online store with cart and payment integration
+                </p>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-primary me-2"
+                    >View Project</a
+                  >
+                  <a href="#" class="btn btn-sm btn-outline-light">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="project-card">
+              <img
+                src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c61908e6-0c79-41e9-9aa8-370134a7c0b6.png"
+                alt="Social media dashboard with analytics charts and user statistics"
+                class="img-fluid w-100"
+              />
+              <div class="overlay p-4">
+                <h4>Social Dashboard</h4>
+                <p>Analytics dashboard for social media management</p>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-primary me-2"
+                    >View Project</a
+                  >
+                  <a href="#" class="btn btn-sm btn-outline-light">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-4"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="project-card">
+              <img
+                src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/53ed1767-aa7a-4144-968f-6eeb68c24ab3.png"
+                alt="Mobile fitness application with workout plans and progress tracking"
+                class="img-fluid w-100"
+              />
+              <div class="overlay p-4">
+                <h4>Fitness App</h4>
+                <p>Mobile application for workout tracking and planning</p>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-primary me-2"
+                    >View Project</a
+                  >
+                  <a href="#" class="btn btn-sm btn-outline-light">Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+          <!-- <a href="#" class="btn btn-custom">View All Projects</a> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-dark3">
+      <div class="container py-5">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+            <h6 class="text-primary">GET IN TOUCH</h6>
+            <h2 class="mb-3">Contact Me</h2>
+            <p>
+              Have a project in mind or want to discuss potential opportunities?
+              Feel free to reach out!
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-envelope-fill text-dark"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Email</h5>
+                  <p class="mb-0">vedantagale2@gmail.com</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-telephone-fill text-dark"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Phone</h5>
+                  <p class="mb-0">+91 8668512429</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary p-2 rounded me-3">
+                  <i class="bi bi-geo-alt-fill text-dark"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Location</h5>
+                  <p class="mb-0">Mumbai, Maharashtra, India</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-icons mt-5">
+              <a href="https://www.linkedin.com/in/vedant-agale/" class="me-3" data-aos="fade-up" data-aos-delay="300"
+                ><i class="bi bi-linkedin fs-4"></i
+              ></a>
+              <a href="https://github.com/vedant-agale" class="me-3" data-aos="fade-up" data-aos-delay="400"
+                ><i class="bi bi-github fs-4"></i
+              ></a>
+              <a href="https://www.instagram.com/vedant._.agale/" class="me-3" data-aos="fade-up" data-aos-delay="500"
+                ><i class="bi bi-instagram fs-4"></i
+              ></a>
+              <a href="https://www.facebook.com/Vedantagale2" class="me-3" data-aos="fade-up" data-aos-delay="100"
+                ><i class="bi bi-facebook fs-4"></i
+              ></a>
+              <a href="#" class="me-3" data-aos="fade-up" data-aos-delay="200"
+                ><i class="bi bi-twitter-x fs-4"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="col-lg-7" data-aos="fade-left">
+            <div class="contact-form bg-gray p-4 p-lg-5 rounded-4">
+              <form id="contactForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Your Name"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Your Email"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Subject"
+                  />
+                </div>
+                <div class="mb-4">
+                  <textarea
+                    class="form-control"
+                    rows="5"
+                    placeholder="Your Message"
+                    required
+                  ></textarea>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-custom">
+                    Send Message
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start">
+            <p class="mb-0">&copy; 2023 Vedant Agale. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <p class="mb-0">
+              Made with <i class="bi bi-heart-fill text-danger"></i> in India
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Typed.js -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Main JS -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        easing: "ease-in-out",
+        once: true,
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Typed.js initialization
+      document.addEventListener("DOMContentLoaded", function () {
+        var typed = new Typed("#typewriter", {
+          strings: [
+            "Web Developer",
+            "UI/UX Desiger",
+            "Graphic Designer",
+            "Video Editor",
+          ],
+          typeSpeed: 50,
+          backSpeed: 30,
+          loop: true,
+          showCursor: true,
+          cursorChar: "|",
+          contentType: "html",
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 70,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Form submission
+        document
+          .getElementById("contactForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Here you would typically send the form data to a server
+            alert("Thank you for your message! I will get back to you soon.");
+            this.reset();
+          });
+      });
+    </script>
+  </body>
+</html>
